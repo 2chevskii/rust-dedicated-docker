@@ -1,0 +1,19 @@
+ARG VANILLA_IMG_VERSION
+
+FROM 2chevskii/rust-ds:vanilla-${VANILLA_IMG_VERSION}
+
+USER 0:0
+
+RUN mkdir -pM 755 /opt/oxidemod/oxide.rust
+RUN chown -R 28000:28000 /opt/oxidemod/oxide.rust
+
+USER 28000:28000
+
+WORKDIR /opt/oxidemod/oxide.rust
+
+RUN wget https://umod.org/games/rust/download/develop -O /opt/oxide/Oxide.Rust-linux64.zip
+RUN unzip -od /opt/rust_ds /opt/oxide/Oxide.Rust-linux64.zip
+
+WORKDIR /opt/rust_ds
+
+ENTRYPOINT ["rust-server"]

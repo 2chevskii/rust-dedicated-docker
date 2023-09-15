@@ -1,0 +1,19 @@
+#!/bin/bash
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rust_ds/RustDedicated_Data/Plugins:/opt/rust_ds/RustDedicated_Data/Plugins/x86_64
+
+mkdir -pm 755 "/opt/rust_ds/server/$SERVER_IDENTITY" || exit 1
+
+./RustDedicated -batchmode -logfile "" \
+  +server.hostname "$SERVER_HOSTNAME" \
+  +server.description "$SERVER_DESCRIPTION" \
+  +server.identity "$SERVER_IDENTITY" \
+  +server.port $SERVER_PORT \
+  +server.queryport $SERVER_QUERYPORT \
+  +server.level "$SERVER_LEVEL" \
+  +server.worldsize $SERVER_WORLDSIZE \
+  +server.seed $SERVER_MAPSEED \
+  +rcon.port $RCON_PORT \
+  +rcon.password "$RCON_PASSWORD" \
+  +app.port $RUSTPLUS_PORT \
+  $ADDITIONAL_CMD_ARGS 2>&1 | tee -a $LOGFILE_PATH
